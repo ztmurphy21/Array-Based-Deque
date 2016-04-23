@@ -62,10 +62,11 @@ class ArrayQueue
        else
        {
            // Add to rear
-           size ++;
            q[rear] = s;
            rear ++;
-           if (rear == q.length) rear = 0;           
+           if (rear == q.length)
+               rear = 0;      
+               count++;
        }
     }
     
@@ -126,7 +127,10 @@ class ArrayQueue
         return size == 0;
     }
     
-    
+    /**
+     * adds item for front of dequeue
+     * @param e 
+     */
     public void addFront(String e){
         if(count == q.length){
            
@@ -141,6 +145,12 @@ class ArrayQueue
         count ++;
         
     }
+    
+    /**
+     * adds item to rear of cmd 2nd time
+     * 
+     * @param e 
+     */
 
     public void addRear(String e){
         if(count == q.length){
@@ -148,15 +158,23 @@ class ArrayQueue
         }
         q[rear] = e;
         rear++;
+        if(rear == q.length)
+            rear=0;
         
         count ++;
     }
+    
     
     //removeFront makes sure deque isn't empty.
     //if empty then exception is thrown
     //if not empty front is incremented to point to next itme for removed
     //item is e
     
+    
+    /**
+     * removes item front
+     * @return 
+     */
     public String removeFront(){
         if(count ==0)
             throw new RuntimeException("Queue is empty.");
@@ -171,6 +189,11 @@ class ArrayQueue
         return e;
     }
     
+    /**
+     * removes item rear
+     * @return 
+     */
+    
     public String removeRear(){
         if(count == 0){
             throw new RuntimeException("Queue is empty.");
@@ -182,6 +205,7 @@ class ArrayQueue
         }
         String e= q[rear];
         q[rear] = null;
+        q[front]=null;
         count--;
         return e;
     }

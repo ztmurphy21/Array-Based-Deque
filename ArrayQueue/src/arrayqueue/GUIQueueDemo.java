@@ -11,6 +11,7 @@ package arrayqueue;
  */
 import java.awt.event.*;
 import java.awt.*;
+import java.nio.charset.Charset;
 import javax.swing.*;
 import java.util.*;
 
@@ -26,13 +27,14 @@ public class GUIQueueDemo extends JFrame
     
     private JTextField commandEntryTextField;
     
+    
     /**
       Constructor.
     */    
     
     GUIQueueDemo()
     {   
-        setTitle("Array Based Queue Demo");       
+        setTitle("Array Based Dequeue");       
         
         // Create queue
         queue = new ArrayQueue(10);
@@ -58,6 +60,25 @@ public class GUIQueueDemo extends JFrame
         commandEntryTextField = new JTextField(15);
 		  ActionListener lis = new CmdTextListener();
         commandEntryTextField.addActionListener(lis);
+        
+        //to list the available commands
+        JPanel avialableCommands = new JPanel();
+        JLabel title = new JLabel("Available Commands: ");
+        JLabel addfront = new JLabel ("addfront");
+        JLabel addrear = new JLabel("addrear");
+        JLabel removerear = new JLabel ("removerear");
+        JLabel removefront = new JLabel ("removefront");
+        
+        //adding to panel for available commands
+        avialableCommands.add(title);
+        avialableCommands.add(addfront);
+        avialableCommands.add(addrear);
+        avialableCommands.add(removerear);
+        avialableCommands.add(removefront);
+        //adding panel west 
+        add(avialableCommands,BorderLayout.WEST);
+        
+
         JPanel commandEntryPanel = new JPanel();
         commandEntryPanel.add(new JLabel("Command: "));        
         commandEntryPanel.add(commandEntryTextField);
@@ -82,23 +103,25 @@ public class GUIQueueDemo extends JFrame
            Scanner sc = new Scanner(cmdText);
            if (!sc.hasNext()) return;
            String cmd = sc.next();
-           
+           //if addfront is cmd
            if(cmd.equals("addfront")){
                String item = sc.next();
                queue.addFront(item);
                refresh(queue.toString());
                
            }
-           
+           //if addrear is cmd
            if(cmd.equals("addrear")){
                String item2 = sc.next();
                queue.addRear(item2);
                refresh(queue.toString());
            }
+           //if removefront is cmd
            if(cmd.equals("removefront")){
                queue.removeFront();
                refresh(queue.toString());
            }
+           //if removerear is cmd
            if(cmd.equals("removerear")){
                queue.removeRear();
                refresh(queue.toString());
